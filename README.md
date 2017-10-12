@@ -1,5 +1,5 @@
 # Object_verification
-©DamianWinczewski2017
+©WinczewskiDamian2017
 
 EN: Detection and classification of moving objects based on the real-time camera image.
 PL: Wykrywanie i klasyfikacja w czasie rzeczywistym ruchomych obiektów na podstawie obrazu z kamery.
@@ -17,4 +17,3 @@ Zadania:
 1. Publikacje nt. wybranych algorytmów śledzenia i wykrywania obiektów
 2. Dokumentacja wybranych bibliotek do przetwarzania obrazów
 3. Internet
-
