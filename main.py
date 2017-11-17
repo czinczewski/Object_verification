@@ -38,6 +38,7 @@ def show_video(cap):
         knnmask = knnbg.apply(frame)
         # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         # cv2.imshow('Video', gray)
+        cv2.imshow('Original', frame)
         cv2.imshow('Mask KNN', knnmask)
         cv2.imshow('Mask MOG2', fgmask)
 

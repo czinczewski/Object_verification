@@ -1,4 +1,5 @@
 import numpy as np
+import datetime
 import cv2
 
 # cap = cv2.VideoCapture(0)
@@ -10,7 +11,9 @@ print("Frame default resolution: (" + str(width) + "; " + str(height) + ") \nFra
 
 # Define the codec and create VideoWriter object
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('./Videos/output.avi', fourcc, rate, (width, height))
+file_name = './Videos/' + datetime.datetime.now().strftime("%Y_%m_%d_T_%H_%M_%S") + '_output.avi'
+print("Start:", datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S"))
+out = cv2.VideoWriter(file_name, fourcc, rate, (width, height))
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -20,7 +23,7 @@ while cap.isOpened():
         # write the flipped frame
         out.write(frame)
 
-        cv2.imshow('frame', frame)
+        # cv2.imshow('frame', frame)
         if cv2.waitKey(1) == 27:
             print("Closing stream")
             break
@@ -28,6 +31,7 @@ while cap.isOpened():
         break
 
 # Release everything if job is finished
+print("End:", datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S"))
 cap.release()
 out.release()
 print("Video saved")
