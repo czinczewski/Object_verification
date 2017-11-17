@@ -34,6 +34,7 @@ def show_video(cap):
 
     while True:
         ret, frame = cap.read()
+        frame = cv2.fastNlMeansDenoisingColored(frame, None, 10, 10, 7, 21)
         fgmask = fgbg.apply(frame)
         knnmask = knnbg.apply(frame)
         # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
