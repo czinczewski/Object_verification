@@ -8,11 +8,14 @@ width, height = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP
 rate = float(cap.get(cv2.CAP_PROP_FPS))
 
 print("Frame default resolution: (" + str(width) + "; " + str(height) + ") \nFrame rate: " + str(rate))
+rate = 10
+print("Frame default resolution: (" + str(width) + "; " + str(height) + ") \nFrame rate: " + str(rate))
 
 # Define the codec and create VideoWriter object
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-file_name = './Videos/' + datetime.datetime.now().strftime("%Y_%m_%d_T_%H_%M_%S") + '_output.avi'
-print("Start:", datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S"))
+time = datetime.datetime.now().strftime("%Y_%m_%d_T_%H_%M_%S")
+file_name = './Videos/' + time + '_output.avi'
+print("Start:", time)
 out = cv2.VideoWriter(file_name, fourcc, rate, (width, height))
 
 while cap.isOpened():
@@ -22,16 +25,18 @@ while cap.isOpened():
 
         # write the flipped frame
         out.write(frame)
-
-        # cv2.imshow('frame', frame)
+        print(cap.get(cv2.CAP_PROP_FPS))
+        cv2.imshow('frame', frame)
         if cv2.waitKey(1) == 27:
             print("Closing stream")
             break
+        else:
+            print("Recording")
     else:
         break
 
 # Release everything if job is finished
-print("End:", datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S"))
+print("End:", datetime.datetime.now().strftime("%Y_%m_%d_T_%H_%M_%S"))
 cap.release()
 out.release()
 print("Video saved")
