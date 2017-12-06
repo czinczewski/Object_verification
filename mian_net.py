@@ -141,7 +141,6 @@ def show_video(cap):
                 data.append(people)
 
         if cv2.waitKey(1) == 27:
-            # print("Found {0} faces!".format(len(faces)))
             print("[INFO] cleaning up...")
             persons = np.array(data)
             ploting(persons)
