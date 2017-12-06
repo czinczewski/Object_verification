@@ -35,8 +35,8 @@ def system_info(cv2_info):
 
 def capture_video(my_camera):
     if my_camera:
-        # cap = cv2.VideoCapture(0) #camera systemowa
-        cap = cv2.VideoCapture('./Videos/2017_11_27_T_12_47_28_output.avi')
+        cap = cv2.VideoCapture(0) #camera systemowa
+        # cap = cv2.VideoCapture('./Videos/2017_11_27_T_12_47_28_output.avi')
         # cap = cv2.VideoCapture('./Videos/dev_stream.avi')
     else:
         cap = cv2.VideoCapture('http://camera.buffalotrace.com/mjpg/video.mjpg?timestamp=1507887365324')
@@ -62,7 +62,7 @@ def detect(frame, net, transform, time):  # add tracking
     # detections = [batch, number of classes, number of occurence, (score, x0, Y0, x1, y1)]
     for i in range(detections.size(1)):
         j = 0
-        while detections[0, i, j, 0] >= 0.5 and labelmap[i - 1] == 'person':
+        while detections[0, i, j, 0] >= 0.25 and labelmap[i - 1] == 'person':
             pt = (detections[0, i, j, 1:] * scale).numpy()
             cv2.rectangle(frame, (int(pt[0]), int(pt[1])), (int(pt[2]), int(pt[3])), (255, 0, 0), 2)
 
@@ -107,11 +107,13 @@ def ploting(persons):
     ax.set_zlabel('Time axis')
 
     i = 0
+    label = 0
     for person in plots:
         person = np.array(person)
-        ax.plot(person[:, 1], person[:, 2], person[:, 0], str(colors[i] + '-'), label=str('person ' + str(i)))
+        ax.plot(person[:, 1], person[:, 2], person[:, 0], str(colors[i] + '-'), label=str('person ' + str(label)))
         ax.plot(person[:, 1], person[:, 2], person[:, 0], str(colors[i] + 'o'))
-        if i > len(colors) - 1:
+        label += 1
+        if i > len(colors) - 2:
             i = 0
         else:
             i += 1
@@ -155,5 +157,5 @@ def show_video(cap):
 
 if __name__ == '__main__':
     system_info(False)
-    cap = capture_video(False)
+    cap = capture_video(True)
     show_video(cap)
